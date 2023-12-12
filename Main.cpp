@@ -33,20 +33,20 @@ namespace {
         }
     }
 
-    void stopBackgroundProcess() {
+    void stopBackgroundService() {
         try {
             LocalSocket localSocket{ LocalSocket::Usage::Client };
             localSocket.send(BackgroundService::Messages::EXIT);
         } catch (const std::runtime_error& e) {
-            std::cout << "Encountered an error while stopping background process: " << e.what() << std::endl;
+            std::cout << "Encountered an error while stopping background service: " << e.what() << std::endl;
         }
     }
 
     void printHelp() {
         std::cout << "Usage:" << std::endl;
-        std::cout << "  --start Starts the background process" << std::endl;
-        std::cout << "  --stop  Attempts to stop the background process" << std::endl;
-        std::cout << "  --list  Prints out neighbour devices" << std::endl;
+        std::cout << "  --start Starts the background service" << std::endl;
+        std::cout << "  --stop  Stops the background service" << std::endl;
+        std::cout << "  --list  Prints out current neighbour devices" << std::endl;
         std::cout << "  --test  Sends a test broadcast" << std::endl;
     }
 }
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
     } else if (strcmp(argv[1], "--list") == 0) {
         getDeviceList();
     } else if (strcmp(argv[1], "--stop") == 0) {
-        stopBackgroundProcess();
+        stopBackgroundService();
     } else if (strcmp(argv[1], "--test") == 0) {
         sendBroadcast();
     } else {
